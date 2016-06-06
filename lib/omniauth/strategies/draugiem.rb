@@ -42,7 +42,7 @@ module OmniAuth
         if request.params['dr_auth_status'] == 'ok' && request.params['dr_auth_code']
           response = RestClient.get('https://api.draugiem.lv/json/', { :params => draugiem_authorize_params(request.params['dr_auth_code']) })
           auth = MultiJson.decode(response.to_s)
-          puts auth.inspect
+          Rails.logger.info auth.inspect
           unless auth['error']
             @auth_data = auth
             super
